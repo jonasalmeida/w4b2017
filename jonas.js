@@ -25,38 +25,38 @@ listCancers=function(id){
         //cbio.get(
         cbio.getCancerStudies(
             function(x){
+                listCancers.dt={study:{}}
                 var div = document.getElementById(id)
-                var h = ''
-                x = x.map(function(xi,i){
+                var h = '<h2 style="color:navy">Cancer Study</h2>'
+                x = x.slice(1).map(function(xi,i){
                    xi = xi.split(/\t/)
                    xi = {id:xi[0],name:xi[1],info:xi[2]}
-                   if(i==0){
-                       //h +='<h2 style="color:navy">'+xi+'</h2>'
-                       h +='<h2 style="color:navy">Cancer Study</h2>'
-                   }else{
-                       h +='<li id="'+xi.id+'_li">'+xi.id+': '+xi.name+'</li>'
-                   }
+                   listCancers.dt.study[xi.id]={name:xi.name,info:xi.info}
+                   h +='<li id="'+xi.id+'">'+xi.id+': '+xi.name+'</li>'
                    return xi                   
                 })
                 div.innerHTML=h
                 // animate listed entries
-                x.slice(1).forEach(function(xi){
-                    var li = document.getElementById(xi.id+'_li')
-                    li.onmouseover=function(){
-                        this.style.color='blue'
-                        this.style.backgroundColor='yellow'
-                        this.style.cursor='pointer'
-                    }
-                    li.onmouseleave=function(){
-                        this.style.color='black'
-                        this.style.backgroundColor=null
-                    }
-                    //that = this
-                    li.onclick=function(){
-                        console.log('clicked on ',li)
+                x.forEach(function(xi){
+                    var li = document.getElementById(xi.id)
+                    if(li){
+                        li.onmouseover=function(){
+                            this.style.color='blue'
+                            this.style.backgroundColor='yellow'
+                            this.style.cursor='pointer'
+                        }
+                        li.onmouseleave=function(){
+                            this.style.color='black'
+                            this.style.backgroundColor=null
+                        }
+                        li.onclick=function(){
+                            console.log('clicked on ',li)
+                            4
 
 
+                        }
                     }
+                        
 
                     4
                 })
