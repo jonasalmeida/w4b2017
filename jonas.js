@@ -51,9 +51,24 @@ listCancers=function(id){
                         }
                         li.onclick=function(){
                             console.log('clicked on ',li)
-                            4
-
-
+                            var caseList={}
+                            cbio.getCaseLists(li.id,function(cc){
+                                var parms = cc[0].split(/\t/)
+                                var ind = parms[0]
+                                parms = parms.slice(1)
+                                var cl = cc.slice(1).map(function(ci){
+                                    ci = ci.split(/\t/)
+                                    caseList[ci[0]]={}
+                                    parms.forEach(function(p,i){
+                                        //console.log(p)
+                                        caseList[ci[0]][p]=ci[i+1]
+                                    })
+                                })
+                                if(!listCancers.dt.study[li.id].caseList){
+                                    listCancers.dt.study[li.id].caseList={}
+                                }
+                                listCancers.dt.study[li.id].caseList=caseList
+                            })
                         }
                     }
                         
